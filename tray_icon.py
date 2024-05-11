@@ -26,15 +26,15 @@ def create_tray_icon():
 
     restart_action = menu.addAction("다시실행")
     restart_action.triggered.connect(lambda: game_control.start_game_control())
-    restart_action.setEnabled(not get_value(game_control.game_control_running))  # 초기 상태 설정
+    restart_action.setEnabled(not get_value(game_control.is_game_control_running))  # 초기 상태 설정
 
     # 메뉴를 트레이 아이콘에 설정
     tray_icon.setContextMenu(menu)
-
+    # 10초에 한번씩 update_game_time을(REFRESH_TIME)호출하여 툴팁을 변경한다
     update_timer = QtCore.QTimer()
     update_timer.timeout.connect(lambda: update_game_time(tray_icon, restart_action))
     update_timer.start(REFRESH_TIME)
-
+    # 게임 제어시작
     game_control.start_game_control()
 
     tray_icon.show()
@@ -42,7 +42,7 @@ def create_tray_icon():
     print("Tray Icon 생성")
     sys.exit(app.exec_())
 
-
+# 툴팁에있는 게임시간과 남은 시간 업데이트
 def update_game_time(tray_icon, restart_action):
 
     game_time = get_game_time()
@@ -50,7 +50,8 @@ def update_game_time(tray_icon, restart_action):
     msg = f"{game_time}\n{remain_game_time}"
 
     tray_icon.setToolTip(msg)
-    restart_action.setEnabled(not get_value(game_control.game_control_running))
+    # 게임시간을 업데이트할때마다 '다시실행'메뉴를 활성화해야하는지 체크
+    restart_action.setEnabled(not get_value(game_control.is_game_control_running))
 
 
 def get_game_time():
@@ -62,12 +63,13 @@ def get_game_time():
 
 def get_remain_game_time():
 
-    current_run_time = get_value(game_control.game_run_time)
+    current_game_run_time = get_value(game_control.game_run_time)
 
-    remain_run_time = game_control.max_game_run_time - current_run_time
-    remain_run_time = remain_run_time if remain_run_time > 0 else 0
+    remain_game_run_time = game_control.max_game_run_time - current_game_run_time
+    # 음수 값이 나올땐 0을 반환, 10초마다 체크하기에 현재게임시간이 맥스게임 런타임보다 더 커질 수 있음
+    remain_game_run_time = remain_game_run_time if remain_game_run_time > 0 else 0
 
-    hours, minutes, seconds = seconds_to_hours_minutes(remain_run_time)
+    hours, minutes, seconds = seconds_to_hours_minutes(remain_game_run_time)
 
     return f"남은시간 : {hours} 시간 {minutes} 분 {seconds}초"
 
@@ -102,6 +104,5 @@ def seconds_to_hours_minutes(seconds):
 
 
 def get_value(shared_value):
-
     with shared_value.get_lock():
         return shared_value.value

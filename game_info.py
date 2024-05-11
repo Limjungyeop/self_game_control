@@ -17,7 +17,6 @@ database_url = str(config['ProgramSettings']['database_url'])
 cred = credentials.Certificate(key_file_name)
 firebase_admin.initialize_app(cred, {'databaseURL': database_url})
 
-
 def get_game_list():
 
     # Firebase Database에서 데이터 읽기
