@@ -1,0 +1,19 @@
+{
+  "game_list": [
+    {
+      "name": "test.exe"
+    },
+    {
+      "name": "notepad.exe"
+    },
+    {
+      "name": "StarCraft.exe"
+    },
+    {
+      "name": "RobloxPlayerBeta.exe"
+    },
+    {
+      "name": "LeagueofLegends.exe"
+    }
+  ]
+}
