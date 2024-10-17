@@ -10,7 +10,8 @@ from datetime import datetime, timedelta
 from PyQt5.QtWidgets import QInputDialog
 import game_info
 import tray_icon
-import random
+import math
+
 CONFIG_FILE = 'config.ini'
 GAME_RUN_TIME_FILE = 'game_run_time.txt'
 INIT_DATE = '9999-12-31T00:00:00.000000'  # Date 초기화 값

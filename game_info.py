@@ -2,7 +2,8 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 import configparser
-import random
+import math
+
 CONFIG_FILE = 'config.ini'
 
 # 구성 파일 읽기

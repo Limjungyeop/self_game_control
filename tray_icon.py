@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import *
 from PyQt5 import QtCore
 from PyQt5.QtGui import QIcon
 import game_control
-import random
+import math
 
 REFRESH_TIME = 10 * 1000  # Tray에 게임시간 표시 주기(밀리초 단위)
 
