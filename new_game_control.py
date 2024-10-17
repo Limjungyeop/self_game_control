@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from PyQt5.QtWidgets import QInputDialog
 import game_info
 import new_tray_icon
+import random
 
 CONFIG_FILE = 'config.ini'
 GAME_RUN_TIME_FILE = 'game_run_time.txt'

@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 from PyQt5.QtWidgets import QInputDialog
 import game_info
 import tray_icon
-
+import random
 CONFIG_FILE = 'config.ini'
 GAME_RUN_TIME_FILE = 'game_run_time.txt'
 INIT_DATE = '9999-12-31T00:00:00.000000'  # Date 초기화 값
@@ -31,7 +31,7 @@ control_start_date = datetime.fromisoformat((config['ControlSettings']['control_
 # 전역 변수 정의
 game_info_list = game_info.get_game_list()  # 체크 할 게임 리스트
 game_run_time = multiprocessing.Value('i', 0)  # 게임 실행 시간
-is_game_control_running = multiprocessing.Value('i', 0) # 게임실행체크가 시작되면 1 안되면 0
+is_game_control_running = multiprocessing.Value('i', 0)  # 게임실행체크가 시작되면 1 안되면 0
 
 
 # 게임 실행 여부 확인
@@ -69,7 +69,7 @@ def save_max_game_run_time(max_time):
         config.write(configfile)
 
 
-# 게임 실행시간 저장
+# 게임 실행 시간 저장
 def save_game_run_time(run_time):
     with open(GAME_RUN_TIME_FILE, 'w') as f:
         f.write(str(run_time))
